@@ -14,8 +14,7 @@ public class FileHandler {
      * @param fileName the name of the file to be parsed
      * @return array of data
      */
-    // TODO change integer to double, to handle non-integer coordinates
-    static public Integer[][] readFile(String fileName) {
+    static public Double[][] readFile(String fileName) {
         
         // TODO do not hardcode nbDim: set functions of nb. columns in data file
         int nbDim = 2;
@@ -33,10 +32,10 @@ public class FileHandler {
             nbPoints = lines;
             
         } catch(Exception e) {
-            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace();
         }
         
-        Integer[][] data = new Integer[nbPoints][nbDim];
+        Double[][] data = new Double[nbPoints][nbDim];
         
         // parse data file
         try{
@@ -52,17 +51,17 @@ public class FileHandler {
             while ((strLine = br.readLine()) != null)   {
                 splitLine = strLine.split("\\t");
                 for (int i = 0; i < nbDim; ++i) {
-                    data[lineIndex][i] = Integer.parseInt(splitLine[i]);
+                    data[lineIndex][i] = Double.parseDouble(
+                            splitLine[i].replace(",", "."));
                 }
                 ++lineIndex;
             }
             
             in.close();
             
-            displayData(data);
+            //displayData(data);
             
         } catch (Exception e) {
-            //System.err.println("Parsing file error: " + e.getMessage());
             e.printStackTrace();
         }
         
