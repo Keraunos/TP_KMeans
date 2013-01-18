@@ -41,6 +41,7 @@ public class Grid extends GraphicObject {
         g.drawLine(Config.ORIG_X, Config.WIN_MARGIN, Config.ORIG_X, Config.GRID_H+Config.WIN_MARGIN);
         
         g.setColor(Color.BLACK);
+        drawPoint(g, 0, 0);
         g.drawString("x", Config.GRID_W+Config.WIN_MARGIN, Config.GRID_H+Config.WIN_MARGIN+12);
         g.drawString("y", Config.WIN_MARGIN-12, Config.WIN_MARGIN);
     }

@@ -9,11 +9,12 @@ import java.util.ArrayList;
 public class Config {
     
     // display sizes in pixels
-    public static final int WIN_W = 600;
-    public static final int WIN_H = 600;
-    public static final int WIN_MARGIN = 50; // inner margin
+    public static final int WIN_W = 900;
+    public static final int WIN_H = 800;
+    public static final int WIN_MARGIN = 40; // inner margin
     public static final int GRID_W = WIN_W - 2 * WIN_MARGIN;
     public static final int GRID_H = WIN_H - 2 * WIN_MARGIN;
+    public static final int PTS_RADIUS = 2;
     
     // coords of grid origin in pixels
     public static int ORIG_X;
@@ -46,21 +47,36 @@ public class Config {
         MIN_X = minX; MAX_X = maxX;
         MIN_Y = minY; MAX_Y = maxY;
         
-        if ( MAX_X - MIN_X  >  MAX_Y - MIN_Y ) {
-            DISP_RATIO = GRID_H / ( MAX_X - MIN_X );
+        System.out.println(MIN_X + " " + MAX_X + " --> " + (MAX_X - MIN_X));
+        System.out.println(MIN_Y + " " + MAX_Y + " --> " + (MAX_Y - MIN_Y));
+        
+        double a, bx, by; // coords = a*pixels + b
+        
+        if ( MAX_X - MIN_X  >=  MAX_Y - MIN_Y ) {
+            DISP_RATIO = GRID_W / ( MAX_X - MIN_X );
+            
+            a = 1/DISP_RATIO;
+            bx = MIN_X - a*WIN_MARGIN;
+            ORIG_X = (int) (-bx/a);
+            
+            int bottomY = WIN_MARGIN + (int) (GRID_H/2 + DISP_RATIO*(MAX_Y-MIN_Y)/2);
+            by = MIN_Y + a*bottomY;
+            ORIG_Y = (int) (by/a);
+            
         } else {
-            DISP_RATIO = GRID_W / ( MAX_Y - MIN_Y );
+            
+            DISP_RATIO = GRID_H / ( MAX_Y - MIN_Y );
+            System.out.println(DISP_RATIO);
+            
+            a = -1/DISP_RATIO;
+            by = MAX_Y - a*WIN_MARGIN;
+            ORIG_Y = (int) (-by/a);
+            
+            int rightX = WIN_MARGIN + (int) (GRID_W/2 + DISP_RATIO*(MAX_X-MIN_X)/2);
+            bx = MAX_X + a*rightX;
+            ORIG_X = (int) (bx/a);
+            
         }
-        
-        double a, b; // coords = a*pixels + b
-        
-        a = (MAX_X - MIN_X) / GRID_W;
-        b = MIN_X - a*WIN_MARGIN;
-        ORIG_X = (int) (-b/a);
-        
-        a = (MIN_Y - MAX_Y) / GRID_H;
-        b = MAX_Y - a*WIN_MARGIN;
-        ORIG_Y = (int) (-b/a);
         
     }
     

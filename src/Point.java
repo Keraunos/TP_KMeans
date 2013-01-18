@@ -66,7 +66,10 @@ public class Point extends GraphicObject {
     
     @Override
     public void plot(Graphics g) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
+        g.setColor(Color.BLUE);
+        drawPoint(g, getX(), getY());
+        
     }
     
     

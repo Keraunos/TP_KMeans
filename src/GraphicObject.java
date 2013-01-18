@@ -20,6 +20,12 @@ abstract class GraphicObject {
     
    public abstract void plot(Graphics g);
    
-   
+   public void drawPoint(Graphics g, double x, double y) {
+       g.fillRect(
+               Config.ORIG_X + (int) (x * Config.DISP_RATIO) - Config.PTS_RADIUS,
+               Config.ORIG_Y - (int) (y * Config.DISP_RATIO) - Config.PTS_RADIUS,
+               2 * Config.PTS_RADIUS,
+               2 * Config.PTS_RADIUS);
+   }
     
 }

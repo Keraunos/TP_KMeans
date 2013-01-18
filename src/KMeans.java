@@ -26,6 +26,12 @@ public class KMeans {
         // define K temporary centres
         ArrayList<Point> centers = setRandCenters(points);
         
+        Display disp = new Display();
+        disp.setVisible(true);
+        for (Point p:points) {
+            disp.addObject(p);
+        }
+        
         for (int i = 0; i < iter; ++i) {
             
             // allocate points to group which centre is closest
@@ -35,8 +41,6 @@ public class KMeans {
             
         }
         
-        Display disp = new Display();
-        disp.setVisible(true);
         
         
     }

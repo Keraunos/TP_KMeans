@@ -34,8 +34,9 @@ public class Display extends JFrame {
     @Override
     public void paint(Graphics g) {
         
+        ArrayList<GraphicObject> gObjList = new ArrayList<GraphicObject>(graphicObjects);
         
-        for (GraphicObject gO:graphicObjects) {
+        for (GraphicObject gO:gObjList) {
             gO.paint(g);
         }
         
