@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 /**
- *
- * @author gaetan
+ * Class Display: frame to display points / clusters
+ * 
+ * @author Paulo Costa Fertonani, Gaetan Girin
  */
 public class Display extends JFrame {
     

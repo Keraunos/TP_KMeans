@@ -11,31 +11,43 @@ public class KMeans {
     
     
     static private String fileName = "sample1.txt";
-    static private int K = 2;
+    static private int K = 2; // number of clusters
     static private int iter = 5;
-    static private ArrayList<Color> palette;
+    static private ArrayList<Point> points;
+    static private ArrayList<Cluster> clusters;
+    static private ArrayList<Point> centers;
+    static private Display disp;
+    
     
     public static void main(String[] args) {
         
         Double[][] data = FileHandler.readFile(fileName);
         
         // build graphic points from coords' array
-        ArrayList<Point> points = pointsFromData(data);
+        buildPointsFromData(data);
         Config.computeBoundingRect(points);
         
-        // define K temporary centres
-        ArrayList<Point> centers = setRandCenters(points);
-        
-        Display disp = new Display();
-        disp.setVisible(true);
-        for (Point p:points) {
-            disp.addObject(p);
+        // define K clusters and K temporary centres
+        clusters = new ArrayList<Cluster>();
+        for (int i = 0; i < K; ++i) {
+            clusters.add(new Cluster());
         }
+        setRandomCenters();
+        for (Cluster c:clusters) {
+            System.out.println("center for cluster " + c + ": " + c.getCenter());
+            
+        }
+        
+        disp = new Display();
+        disp.setVisible(true);
+        for (Point p:points) disp.addObject(p);
         
         for (int i = 0; i < iter; ++i) {
             
             // allocate points to group which centre is closest
-            
+            for (Point p:points) {
+                
+            }
             
             // recenter: calculate gravity centers for formed groups
             
@@ -49,43 +61,39 @@ public class KMeans {
     /**
      * Creates a list of Points from raw data
      * 
-     * @param data
-     * @return 
+     * @param data Array of coordinates
      */
-    private static ArrayList<Point> pointsFromData(Double[][] data) {
+    private static void buildPointsFromData(Double[][] data) {
         
-        ArrayList<Point> res = new ArrayList<Point>();
+        points = new ArrayList<Point>();
         
         for (int i = 0; i < data.length; ++i) {
-            res.add(new Point(data[i]));
-            //System.out.println(res.get(i));
+            points.add(new Point(data[i]));
         }
         
-        return res;
     }
     
     
     /**
      * Randomly sets K temporary cluster centers
      * 
-     * @param points list of all the Points
-     * @return list of K Points designated as temporary centers
      */
-    private static ArrayList<Point> setRandCenters(ArrayList<Point> points) {
+    private static void setRandomCenters() {
         
-        ArrayList<Point> res = new ArrayList<Point>();
+        centers = new ArrayList<Point>();
         
         int rand;
         for (int i = 0; i < K; ++i) {
             do {
                 rand = (int) (Math.random() * points.size());
-            } while (res.contains(points.get(rand)));
-            res.add(points.get(rand));
+            } while (centers.contains(points.get(rand)));
+            centers.add(points.get(rand));
+            clusters.get(i).addPoint(points.get(rand));
+            clusters.get(i).setCenter(points.get(rand));
         }
         
-        for (Point p:res) System.out.println(p);
+        for (Point p:centers) System.out.println(p);
         
-        return res;
     }
     
 }

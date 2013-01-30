@@ -10,7 +10,7 @@ public class Config {
     
     // display sizes in pixels
     public static final int WIN_W = 900;
-    public static final int WIN_H = 800;
+    public static final int WIN_H = 700;
     public static final int WIN_MARGIN = 40; // inner margin
     public static final int GRID_W = WIN_W - 2 * WIN_MARGIN;
     public static final int GRID_H = WIN_H - 2 * WIN_MARGIN;
@@ -46,9 +46,6 @@ public class Config {
         
         MIN_X = minX; MAX_X = maxX;
         MIN_Y = minY; MAX_Y = maxY;
-        
-        System.out.println(MIN_X + " " + MAX_X + " --> " + (MAX_X - MIN_X));
-        System.out.println(MIN_Y + " " + MAX_Y + " --> " + (MAX_Y - MIN_Y));
         
         double a, bx, by; // coords = a*pixels + b
         

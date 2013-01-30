@@ -25,75 +25,127 @@ public class Cluster extends GraphicObject {
         Color.BLACK,
         Color.DARK_GRAY,
     };
-    private Point center;
-    private ArrayList<Point> points;
+    
     private Color color;
+    private ArrayList<Point> points;
+    private Point center;
     
     
+    
+    /**
+     * Constructor
+     */
     public Cluster() {
         setColor();
+        points = new ArrayList<Point>();
     }
     
+    /**
+     * Sets the color of this Cluster using Cluster class palette
+     */
     private void setColor() {
         this.color = palette[paletteIndex % palette.length];
         ++paletteIndex;
     }
     
     
+    /**
+     * Gets the Color of this Cluster
+     * @return The Color of this Cluster
+     */
     public Color getColor() {
         return color;
     }
     
+    /**
+     * Gets the center Point of this Cluster
+     * @return The center Point of this Cluster
+     */
     public Point getCenter() {
         return center;
     }
     
+    /**
+     * Gets the list of Points of this Cluster
+     * @return The list of Points of this Cluster
+     */
     public ArrayList<Point> getPoints() {
         return points;
     }
     
+    /**
+     * Gets the Point at the specified position in this Cluster's Points list
+     * @param i Index of the Point to return
+     * @return The Point at the specified position in this Cluster's Points list
+     */
     public Point getPoint(int i) {
         return points.get(i);
     }
     
-    
+    /**
+     * Sets this Cluster's Color
+     * @param color The Color
+     */
     public void setColor(Color color) {
         this.color = color;
     }
     
+    /**
+     * Sets the center Point of this Cluster - The given center must be a Point
+     * of this Cluster.
+     * @param center The Point to be set as center Point
+     */
     public void setCenter(Point center) {
-        this.center = center;
+        if (center.getCluster() == this)
+            this.center = center;
     }
     
+    /**
+     * Sets the list of Points of this Cluster
+     * @param points The list of Points to be set
+     */
     public void setPoints(ArrayList<Point> points) {
         this.points = points;
     }
     
-    public void setPoint(int i, Point point) {
-        this.points.set(i, point);
-    }
     
-    
+    /**
+     * Adds the given Point to the list of Points of this Cluster and removes
+     * the given Point from its initial Cluster's list of Points
+     * @param point The Point to be added
+     */
     public void addPoint(Point point) {
-        this.points.add(point);
+        
+        if ( ! this.points.contains(point) ) {
+            this.points.add(point);
+        }
+        
+        if (point.getCluster() != null) {
+            point.getCluster().removePoint(point);
+        }
+        point.setCluster(this);
     }
     
+    /**
+     * Removes the given Point to the list of Points of this Cluster
+     * @param point The Point to be removed
+     */
     public void removePoint(Point point) {
-        this.points.remove(point);
+        
+        if (this.points.contains(point)) {
+            this.points.remove(point);
+        }
+        
+        if (this.center == point) this.center = null;
+        point.setCluster(null);
     }
     
     
-    public void changePointCluster(Point point, Cluster cluster) {
-        points.remove(point);
-        point.setCluster(cluster);
-        cluster.addPoint(point);
-    }
-    
-    public void changePointCluster(int i, Cluster cluster) {
-        changePointCluster(points.get(i), cluster);
-    }
-    
-    
+    /**
+     * Plots this Cluster on the display frame
+     * 
+     * @param g The graphics context
+     */
     @Override
     public void plot(Graphics g) {
         throw new UnsupportedOperationException("Not supported yet.");
