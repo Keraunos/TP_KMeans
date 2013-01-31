@@ -1,8 +1,7 @@
 package kmeans;
 
-import java.awt.Color;
-import java.io.*;
 import java.util.ArrayList;
+import kmeans.measure.*;
 
 /**
  * Class KMeans: contains a k-means algorithms and associated methods
@@ -11,13 +10,17 @@ import java.util.ArrayList;
  */
 public class KMeans {
     
-    
+    // algorithm parameters
     static private String fileName = "sample1.txt";
     static private int K = 2; // number of clusters
     static private int iter = 5;
+    static private Measure measure = new EuclidianDistance();
+    
+    // lists of points and clusters (groups of points)
     static private ArrayList<Point> points;
     static private ArrayList<Cluster> clusters;
     static private ArrayList<Point> centers;
+    
     static private Display disp;
     
     
