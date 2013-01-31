@@ -13,7 +13,7 @@ public class KMeans {
     // algorithm parameters
     static private String fileName = "sample1.txt";
     static private int K = 2; // number of clusters
-    static private int iter = 5;
+    static private int iter = 1;
     // EuclidianDistance / L1Distance / CanberraDistance
     static private Measure measure = new EuclidianDistance();
     
@@ -50,21 +50,40 @@ public class KMeans {
             System.out.println("center for cluster " + c + ": " + c.getCenter());
         }
         
-        disp = new Display();
-        disp.setVisible(true);
-        for (Point p:points) disp.addObject(p);
+//        disp = new Display();
+//        disp.setVisible(true);
+//        for (Point p:points) disp.addObject(p);
+        
+        double minDist, currDist;
+        Cluster alloc;
         
         for (int i = 0; i < iter; ++i) {
             
             // allocate points to group which center is closest
             for (Point p:points) {
                 
+                minDist = Config.MAX;
+                alloc = clusters.get(0); // default initialization
+                
+                for (Cluster c:clusters) {
+                    currDist = measure.d(p, c.getCenter());
+                    if (currDist < minDist) {
+                        minDist = currDist;
+                        alloc = c;
+                    }
+                }
+                
+                alloc.addPoint(p);
             }
             
             // recenter: calculate gravity centers for formed groups
             
+            
         }
         
+        disp = new Display();
+        disp.setVisible(true);
+        for (Point p:points) disp.addObject(p);
         
         
     }
