@@ -100,8 +100,7 @@ public class KMeans {
                 rand = (int) (Math.random() * points.size());
             } while (centers.contains(points.get(rand)));
             centers.add(points.get(rand));
-            clusters.get(i).addPoint(points.get(rand));
-            clusters.get(i).setCenter(points.get(rand));
+            clusters.get(i).addCenterPoint(points.get(rand));
         }
         
         for (Point p:centers) System.out.println(p);

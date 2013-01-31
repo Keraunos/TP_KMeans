@@ -129,6 +129,15 @@ public class Cluster extends GraphicObject {
     }
     
     /**
+     * Adds a Point and define it as the center
+     * @param point The Point to be added as the center
+     */
+    public void addCenterPoint(Point point) {
+        addPoint(point);
+        setCenter(point);
+    }
+    
+    /**
      * Removes the given Point to the list of Points of this Cluster
      * @param point The Point to be removed
      */
