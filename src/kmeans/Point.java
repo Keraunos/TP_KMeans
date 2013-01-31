@@ -70,6 +70,14 @@ public class Point extends GraphicObject {
     }
     
     /**
+     * Gets the dimension of this Point's space
+     * @return The dimension ie. number of coordinates
+     */
+    public int getDim() {
+        return coords.length;
+    }
+    
+    /**
      * Gets the Cluster of this Point
      * @return The Cluster
      */
