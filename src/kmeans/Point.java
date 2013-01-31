@@ -61,6 +61,15 @@ public class Point extends GraphicObject {
     }
     
     /**
+     * Gets the coordinate indicated by the given index
+     * @param i The index
+     * @return The coordinate at index i
+     */
+    public double getCoord(int i) {
+        return coords[i];
+    }
+    
+    /**
      * Gets the Cluster of this Point
      * @return The Cluster
      */
