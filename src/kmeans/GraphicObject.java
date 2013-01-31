@@ -29,5 +29,13 @@ abstract class GraphicObject {
                2 * Config.PTS_RADIUS,
                2 * Config.PTS_RADIUS);
    }
+   
+   public void drawBigPoint(Graphics g, double x, double y) {
+       g.fillOval(
+               Config.ORIG_X + (int) (x * Config.DISP_RATIO) - 3 * Config.PTS_RADIUS,
+               Config.ORIG_Y - (int) (y * Config.DISP_RATIO) - 3 * Config.PTS_RADIUS,
+               6 * Config.PTS_RADIUS,
+               6 * Config.PTS_RADIUS);
+   }
     
 }

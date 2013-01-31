@@ -141,15 +141,24 @@ public class Point extends GraphicObject {
     @Override
     public void plot(Graphics g) {
         
-        // TODO change to compare this point with its cluster's center
-        if (getCluster() != null) {
-            g.setColor(Color.ORANGE);            
+        if (cluster != null && this == cluster.getCenter()) {
+            drawBigPoint(g, getX(), getY());
         } else {
-            g.setColor(Color.BLUE);
+            drawPoint(g, getX(), getY());
         }
-        drawPoint(g, getX(), getY());
         
     }
     
+    @Override
+    public void colorize(Graphics g) {
+        
+        if (cluster == null) {
+            g.setColor(Config.NO_CLUSTER);
+        } else if (this == cluster.getCenter()) {
+            g.setColor(Config.CENTER);
+        } else {
+            g.setColor(cluster.getColor());
+        }
+    }
     
 }

@@ -1,6 +1,7 @@
 package kmeans;
 
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -30,6 +31,13 @@ public class Config {
     public static double MAX_X;
     public static double MIN_Y;
     public static double MAX_Y;
+    
+    public static double MAX = 1e200;
+    
+    // colors
+    public static Color LIGHT_BLUE = new Color(200, 200, 255);
+    public static Color NO_CLUSTER = LIGHT_BLUE;
+    public static Color CENTER = Color.GRAY;
     
     
     public static void computeBoundingRect(ArrayList<Point> points) {
