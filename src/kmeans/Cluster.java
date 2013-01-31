@@ -122,7 +122,7 @@ public class Cluster extends GraphicObject {
             this.points.add(point);
         }
         
-        if (point.getCluster() != null) {
+        if (point.getCluster() != null && point.getCluster() != this) {
             point.getCluster().removePoint(point);
         }
         point.setCluster(this);
