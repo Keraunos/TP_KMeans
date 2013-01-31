@@ -11,14 +11,12 @@ public class CanberraDistance extends Distance {
     
     @Override
     public double d(Point p1, Point p2) {
-        // TODO code the distance
-        return new Double(2);
-    }
-    
-    @Override
-    public double s(Point p1, Point p2) {
-        // TODO code the similarity
-        return new Double(2);
+        double res = 0;
+        for (int i = 0; i < p1.getDim(); ++i) {
+            res += Math.abs( p1.getCoord(i) - p2.getCoord(i) ) /
+                    ( Math.abs(p1.getCoord(i)) + Math.abs(p2.getCoord(i)) );
+        }
+        return res / (double) p1.getDim();
     }
     
 }

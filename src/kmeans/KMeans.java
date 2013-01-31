@@ -14,7 +14,8 @@ public class KMeans {
     static private String fileName = "sample1.txt";
     static private int K = 2; // number of clusters
     static private int iter = 5;
-    static private Measure measure = new L1Distance();
+    // EuclidianDistance / L1Distance / CanberraDistance
+    static private Measure measure = new EuclidianDistance();
     
     // lists of points and clusters (groups of points)
     static private ArrayList<Point> points;
@@ -27,8 +28,8 @@ public class KMeans {
     public static void main(String[] args) {
         
         // TEST
-//        Point p1 = new Point(0d, 0d);
-//        Point p2 = new Point(3d, 4d);
+//        Point p1 = new Point(-1d, -1d);
+//        Point p2 = new Point(2d, 3d);
 //        System.out.println(measure.d(p1, p2));
 //        System.out.println(measure.s(p1, p2));
 //        return;
@@ -47,7 +48,6 @@ public class KMeans {
         setRandomCenters();
         for (Cluster c:clusters) {
             System.out.println("center for cluster " + c + ": " + c.getCenter());
-            
         }
         
         disp = new Display();

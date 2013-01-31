@@ -15,10 +15,4 @@ public class GowerDistance extends Distance {
         return new Double(3);
     }
     
-    @Override
-    public double s(Point p1, Point p2) {
-        // TODO code the similarity
-        return new Double(3);
-    }
-    
 }
