@@ -7,7 +7,7 @@ import kmeans.Point;
  * 
  * @author Paulo Costa Fertonani, Gaetan Girin
  */
-public class GowerDistance implements Measure {
+public class GowerDistance extends Distance {
     
     @Override
     public double d(Point p1, Point p2) {

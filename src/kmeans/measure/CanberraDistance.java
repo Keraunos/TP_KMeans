@@ -7,7 +7,7 @@ import kmeans.Point;
  * 
  * @author Paulo Costa Fertonani, Gaetan Girin
  */
-public class CanberraDistance implements Measure {
+public class CanberraDistance extends Distance {
     
     @Override
     public double d(Point p1, Point p2) {
