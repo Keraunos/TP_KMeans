@@ -1,3 +1,5 @@
+package kmeans;
+
 import java.io.*;
 
 /**

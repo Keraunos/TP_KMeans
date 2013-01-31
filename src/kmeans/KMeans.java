@@ -1,3 +1,5 @@
+package kmeans;
+
 import java.awt.Color;
 import java.io.*;
 import java.util.ArrayList;
@@ -44,7 +46,7 @@ public class KMeans {
         
         for (int i = 0; i < iter; ++i) {
             
-            // allocate points to group which centre is closest
+            // allocate points to group which center is closest
             for (Point p:points) {
                 
             }
