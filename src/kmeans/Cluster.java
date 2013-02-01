@@ -13,6 +13,8 @@ import java.util.ArrayList;
  */
 public class Cluster extends GraphicObject {
     
+    private static int clusterIndex = 0;
+    
     private static int paletteIndex = 0;
     private static Color[] palette = {
         Color.BLUE,
@@ -31,6 +33,7 @@ public class Cluster extends GraphicObject {
     private Color color;
     private ArrayList<Point> points;
     private Point center;
+    private int index;
     
     
     
@@ -40,6 +43,8 @@ public class Cluster extends GraphicObject {
     public Cluster() {
         setColor();
         points = new ArrayList<Point>();
+        ++clusterIndex;
+        index = clusterIndex;
     }
     
     /**
@@ -185,6 +190,12 @@ public class Cluster extends GraphicObject {
         newCenter.setCluster(this);
         
         return newCenter;
+    }
+    
+    
+    @Override
+    public String toString() {
+        return "cluster #" + index;
     }
     
     
