@@ -25,6 +25,9 @@ public class Grid extends GraphicObject {
         
         Graphics2D g = (Graphics2D) _g;
         
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, Config.WIN_W, Config.WIN_H);
+        
         g.setColor(Color.GRAY);
         Stroke stroke = g.getStroke();
         // define new stroke to draw dashed lines
