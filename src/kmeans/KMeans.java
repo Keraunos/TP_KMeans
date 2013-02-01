@@ -11,12 +11,13 @@ import kmeans.measure.*;
 public class KMeans {
     
     // algorithm parameters
-    static private String fileName = "sample2.txt";
-    static private int K = 5; // number of clusters
+    static private String fileName = "listOfMeans.txt";
+    static private int K = 10; // number of clusters
     static private boolean stopOnConverge = true;
     static private int maxIter = 200;
     // EuclidianDistance / L1Distance / CanberraDistance
     static private Measure measure = new EuclidianDistance();
+    static private Boolean canDisplay = true;
     
     // lists of points and clusters (groups of points)
     static private ArrayList<Point> points;
@@ -37,6 +38,9 @@ public class KMeans {
         
         Double[][] data = FileHandler.readFile(fileName);
         
+        // cannot display points if dimension is > 2
+        if (data[0].length != 2) canDisplay = false;
+        
         // build graphic points from coords' array
         buildPointsFromData(data);
         Config.computeBoundingRect(points);
@@ -51,10 +55,15 @@ public class KMeans {
             System.out.println("center for cluster " + c + ": " + c.getCenter());
         }
         
-        disp = new Display();
-        disp.setVisible(true);
-        for (Point p:points) disp.addObject(p);
-        pause(500);
+        if (canDisplay) {
+            disp = new Display();
+            disp.setVisible(true);
+            for (Point p : points) {
+                disp.addObject(p);
+            }
+            pause(500);
+        }
+        
         
         // variables used in for loops
         double minDist, currDist, diff;
@@ -64,7 +73,10 @@ public class KMeans {
         
         for (int i = 0; i < maxIter; ++i) {
             
-            disp.setLabel("[ iteration #" + (i+1) + " ]");
+            if (canDisplay)
+                disp.setLabel("[ iteration #" + (i+1) + " ]");
+            else
+                System.out.println("------> iteration #" + (i+1));
             
             // allocate points to group which center is closest
             for (Point p:points) {
@@ -89,7 +101,7 @@ public class KMeans {
             for (Cluster c:clusters) {
                 
                 // delete previous center if it not a Point of the Cluster
-                if ( ! c.getPoints().contains(c.getCenter()) ) {
+                if (canDisplay && ! c.getPoints().contains(c.getCenter()) ) {
                     disp.removeObject(c.getCenter());
                 }
                 
@@ -106,15 +118,20 @@ public class KMeans {
                     }
                 }
                 
-                disp.addObject(newCenter);
+                if (canDisplay) disp.addObject(newCenter);
+                else System.out.println("\tcenter for " + c + ": " + c.getCenter());
             }
             
-            disp.repaint();
+            if (canDisplay) disp.repaint();
             
             // if Clusters' centers don't change anymore, then stop (algorithm converged)
             if (diff == 0 && stopOnConverge) {
-                disp.setLabel("[ Converged at iteration #" + (i) + " ]");
-                disp.repaint();
+                if (canDisplay) {
+                    disp.setLabel("[ Converged at iteration #" + (i) + " ]");
+                    disp.repaint();
+                } else {
+                    System.out.println("[ Converged at iteration #" + (i) + " ]");
+                }
                 break;
             }
             
