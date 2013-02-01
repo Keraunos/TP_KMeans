@@ -11,9 +11,10 @@ import kmeans.measure.*;
 public class KMeans {
     
     // algorithm parameters
-    static private String fileName = "sample3.txt";
-    static private int K = 3; // number of clusters
-    static private int iter = 200;
+    static private String fileName = "sample2.txt";
+    static private int K = 5; // number of clusters
+    static private boolean stopOnConverge = true;
+    static private int maxIter = 200;
     // EuclidianDistance / L1Distance / CanberraDistance
     static private Measure measure = new EuclidianDistance();
     
@@ -27,7 +28,7 @@ public class KMeans {
     
     public static void main(String[] args) {
         
-        // TEST
+        // TEST MEASURE
 //        Point p1 = new Point(-1d, -1d);
 //        Point p2 = new Point(2d, 3d);
 //        System.out.println(measure.d(p1, p2));
@@ -53,12 +54,15 @@ public class KMeans {
         disp = new Display();
         disp.setVisible(true);
         for (Point p:points) disp.addObject(p);
-        pause(2000);
+        pause(500);
         
-        double minDist, currDist;
+        // variables used in for loops
+        double minDist, currDist, diff;
+        Double[] prevCoords, newCoords;
         Cluster alloc;
+        Point newCenter;
         
-        for (int i = 0; i < iter; ++i) {
+        for (int i = 0; i < maxIter; ++i) {
             
             disp.setLabel("[ iteration #" + (i+1) + " ]");
             
@@ -80,7 +84,8 @@ public class KMeans {
             }
             
             // recenter: calculate gravity centers for formed groups
-            Point newCenter;
+            diff = 0;
+            prevCoords = null;
             for (Cluster c:clusters) {
                 
                 // delete previous center if it not a Point of the Cluster
@@ -88,12 +93,32 @@ public class KMeans {
                     disp.removeObject(c.getCenter());
                 }
                 
+                if (stopOnConverge) {
+                    prevCoords = c.getCenter().getCoords();
+                }
+                
                 newCenter = c.makeGravityCenter();
+                
+                if (stopOnConverge) {
+                    newCoords = c.getCenter().getCoords();
+                    for (int k = 0; k < prevCoords.length; ++k) {
+                        diff += Math.abs(prevCoords[k] - newCoords[k]);
+                    }
+                }
+                
                 disp.addObject(newCenter);
             }
             
             disp.repaint();
-            pause(50);
+            
+            // if Clusters' centers don't change anymore, then stop (algorithm converged)
+            if (diff == 0 && stopOnConverge) {
+                disp.setLabel("[ Converged at iteration #" + (i) + " ]");
+                disp.repaint();
+                break;
+            }
+            
+            pause(20);
         }
         
         
