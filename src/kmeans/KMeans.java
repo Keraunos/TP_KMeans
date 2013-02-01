@@ -11,9 +11,9 @@ import kmeans.measure.*;
 public class KMeans {
     
     // algorithm parameters
-    static private String fileName = "sample1.txt";
+    static private String fileName = "sample3.txt";
     static private int K = 3; // number of clusters
-    static private int iter = 5;
+    static private int iter = 200;
     // EuclidianDistance / L1Distance / CanberraDistance
     static private Measure measure = new EuclidianDistance();
     
@@ -60,6 +60,8 @@ public class KMeans {
         
         for (int i = 0; i < iter; ++i) {
             
+            disp.setLabel("[ iteration #" + (i+1) + " ]");
+            
             // allocate points to group which center is closest
             for (Point p:points) {
                 
@@ -81,17 +83,17 @@ public class KMeans {
             Point newCenter;
             for (Cluster c:clusters) {
                 
-                newCenter = c.makeGravityCenter();
                 // delete previous center if it not a Point of the Cluster
                 if ( ! c.getPoints().contains(c.getCenter()) ) {
                     disp.removeObject(c.getCenter());
                 }
                 
+                newCenter = c.makeGravityCenter();
                 disp.addObject(newCenter);
             }
             
             disp.repaint();
-            pause(1000);
+            pause(50);
         }
         
         

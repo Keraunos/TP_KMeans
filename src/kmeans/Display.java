@@ -17,7 +17,7 @@ public class Display extends JFrame {
      * List of graphical objects to be displayed
      */
     private ArrayList<GraphicObject> graphicObjects;
-    
+    private Grid grid;
     
     /**
      * Constructor
@@ -27,7 +27,26 @@ public class Display extends JFrame {
         graphicObjects = new ArrayList<GraphicObject>();
         setSize(Config.WIN_W, Config.WIN_H);
         this.setBackground(Color.white);
-        this.addObject(new Grid());
+        this.grid = new Grid();
+        this.addObject(this.grid);
+    }
+    
+    
+    /**
+     * Gets the Grid
+     * @return The Grid
+     */
+    public Grid getGrid() {
+        return this.grid;
+    }
+    
+    
+    /**
+     * Sets the label to be displayed on the Grid
+     * @param label The String to be displayed
+     */
+    public void setLabel(String label) {
+        this.grid.setLabel(label);
     }
     
     

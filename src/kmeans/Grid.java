@@ -14,9 +14,16 @@ import java.awt.Stroke;
  */
 public class Grid extends GraphicObject {
     
+    private String label;
+    
     
     public Grid() {
-        
+        this.label = "[ Initial state ]";
+    }
+    
+    
+    public void setLabel(String label) {
+        this.label = label;
     }
     
     
@@ -49,6 +56,10 @@ public class Grid extends GraphicObject {
         drawPoint(g, 0, 0);
         g.drawString("x", Config.GRID_W+Config.WIN_MARGIN, Config.GRID_H+Config.WIN_MARGIN+12);
         g.drawString("y", Config.WIN_MARGIN-12, Config.WIN_MARGIN);
+        
+        // label
+        g.drawString(label, Config.WIN_MARGIN, Config.GRID_H+Config.WIN_MARGIN+20);
+        
     }
     
     
