@@ -153,6 +153,42 @@ public class Cluster extends GraphicObject {
     
     
     /**
+     * Gets the dimension of the Points in this Cluster
+     * @return The dimension ie. number of coordinates of the Points
+     */
+    public int getDim() {
+        return points.get(0).getDim();
+    }
+    
+    /**
+     * Creates the gravity center of the cluster
+     * @return The Point which is the new center
+     */
+    public Point makeGravityCenter() {
+        
+        int dim = getDim();
+        Double[] coordsG = new Double[dim];
+        for (int i = 0; i < dim; ++i) coordsG[i] = 0d;
+        
+        // calculate the means of Points' coordinates
+        for (Point p:points) {
+            for (int i = 0; i < dim; ++i) {
+                coordsG[i] += p.getCoord(i);
+            }
+        }
+        for (int i = 0; i < dim; ++i) {
+            coordsG[i] = coordsG[i] / (double) points.size();
+        }
+        
+        Point newCenter = new Point(coordsG);
+        this.center = newCenter;
+        newCenter.setCluster(this);
+        
+        return newCenter;
+    }
+    
+    
+    /**
      * Plots this Cluster on the display frame
      * 
      * @param g The graphics context

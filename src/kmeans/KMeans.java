@@ -12,8 +12,8 @@ public class KMeans {
     
     // algorithm parameters
     static private String fileName = "sample1.txt";
-    static private int K = 2; // number of clusters
-    static private int iter = 1;
+    static private int K = 3; // number of clusters
+    static private int iter = 5;
     // EuclidianDistance / L1Distance / CanberraDistance
     static private Measure measure = new EuclidianDistance();
     
@@ -50,9 +50,10 @@ public class KMeans {
             System.out.println("center for cluster " + c + ": " + c.getCenter());
         }
         
-//        disp = new Display();
-//        disp.setVisible(true);
-//        for (Point p:points) disp.addObject(p);
+        disp = new Display();
+        disp.setVisible(true);
+        for (Point p:points) disp.addObject(p);
+        pause(2000);
         
         double minDist, currDist;
         Cluster alloc;
@@ -77,15 +78,40 @@ public class KMeans {
             }
             
             // recenter: calculate gravity centers for formed groups
+            Point newCenter;
+            for (Cluster c:clusters) {
+                
+                newCenter = c.makeGravityCenter();
+                // delete previous center if it not a Point of the Cluster
+                if ( ! c.getPoints().contains(c.getCenter()) ) {
+                    disp.removeObject(c.getCenter());
+                }
+                
+                disp.addObject(newCenter);
+            }
             
-            
+            disp.repaint();
+            pause(1000);
         }
         
-        disp = new Display();
-        disp.setVisible(true);
-        for (Point p:points) disp.addObject(p);
         
-        
+    }
+    
+    
+    /**
+     * Pauses the current thread for the given duration in ms
+     * @param durationMillis The duration in milliseconds
+     */
+    public static void pause(int durationMillis) {
+        double t1, t0 = System.currentTimeMillis();
+        do {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+            t1 = System.currentTimeMillis();
+        } while (t1 - t0 < durationMillis);
     }
     
     
