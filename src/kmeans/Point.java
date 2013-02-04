@@ -126,10 +126,10 @@ public class Point extends GraphicObject {
      */
     @Override
     public String toString() {
-        String res = "";
+        String res = "[ ";
         for (int i = 0; i < this.coords.length; ++i)
-            res += "[" + Math.floor(this.coords[i]*100)/100 + "]";
-        return res;
+            res += Math.floor(this.coords[i]*100)/100 + ", ";
+        return res + " ]";
     }
     
     
