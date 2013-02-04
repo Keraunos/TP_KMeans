@@ -13,7 +13,7 @@ public class Config {
     
     // display sizes in pixels
     public static final int WIN_W = 900;
-    public static final int WIN_H = 800;
+    public static final int WIN_H = 850;
     public static final int WIN_MARGIN = 40; // inner margin
     public static final int GRID_W = WIN_W - 2 * WIN_MARGIN;
     public static final int GRID_H = WIN_H - 2 * WIN_MARGIN;
